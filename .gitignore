@@ -1,4 +1,5 @@
 workspace.code-workspace
+/.vscode
 
 /server/node_modules
 /server/config

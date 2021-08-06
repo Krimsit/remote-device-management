@@ -1,0 +1,26 @@
+{
+    "name": "remote-device-management",
+    "version": "0.0.1",
+    "description": "Application for controlling the device from any point of the world",
+    "keywords": [
+        "remote",
+        "application",
+        "react",
+        "nodejs",
+        "typescript"
+    ],
+    "author": {
+        "name": "Andrey Subbotin",
+        "email": "KrimsitDjenkis@yandex.ru",
+        "url": "https://github.com/Krimsit"
+    },
+    "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Krimsit/remote-device-management.git"
+    },
+    "homepage": "https://github.com/Krimsit/remote-device-management#readme",
+    "bugs": {
+        "url": "https://github.com/Krimsit/remote-device-management/issues"
+    }
+}

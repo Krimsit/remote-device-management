@@ -1,0 +1,11 @@
+workspace.code-workspace
+
+/server/node_modules
+/server/config
+/server/yarn.lock
+
+/client/dist
+/client/node_modules
+
+/desktop_client/node_modules
+/desktop_client/config

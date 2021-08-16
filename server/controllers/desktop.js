@@ -1,7 +1,11 @@
 import { DesktopModel, UserModel } from "../models/index.js"
 
-const controller = {
-    createDesktopClient: (req, res) => {
+class controller {
+    constructor({ io }) {
+        this.io = io
+    }
+
+    createDesktopClient = (req, res) => {
         const postData = {
             user_id: req.body.user_id,
             desktop_name: req.body.desktop_name,
@@ -51,8 +55,15 @@ const controller = {
                     data: err,
                 })
             })
-    },
-    getOnlineStatus: (req, res) => {},
+    }
+    updateStaticData = (req, res) => {
+        this.io.sockets.to(`room_${req.query.client_id}`).emit("PC:GET_STATIC_DATA")
+        res.end()
+    }
+    updateDynamicData = (req, res) => {
+        this.io.sockets.to(`room_${req.body.client_id}`).emit("PC:GET_DYNAMIC_DATA")
+        res.end()
+    }
 }
 
 export default controller

@@ -11,7 +11,7 @@ const desktopScheme = new Schema({
         required: true,
     },
     hostname: String,
-    information: {
+    static_data: {
         model: String,
         baseboard: String,
         cpu: {
@@ -36,6 +36,11 @@ const desktopScheme = new Schema({
                 size: Number,
             },
         ],
+    },
+    dynamic_data: {
+        memory: Array,
+        battery: Object,
+        disks: Array,
     },
 })
 

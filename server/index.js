@@ -9,8 +9,9 @@ dotenv.config()
 const app = express()
 const http = createHttp(app)
 
-createRouter(app)
-createSocket(http)
+const io = createSocket(http)
+
+createRouter(app, io)
 createDB()
 
 http.listen(process.env.PORT, function () {

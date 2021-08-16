@@ -2,32 +2,26 @@ import * as React from "react"
 import { useState, useEffect } from "react"
 import { connect } from "react-redux"
 
-import { socket } from "../../../../core"
+import { IDesktopData } from "../../../../interface/desktop"
 
 import { Status } from "../../components"
 
 interface IStatusContainerProps {
-    _id: string
+    desktop: IDesktopData
 }
 
-const StatusContainer: React.FC<IStatusContainerProps> = ({ _id }) => {
+const StatusContainer: React.FC<IStatusContainerProps> = ({ desktop }) => {
     const [status, setStatus] = useState({
-        online: false,
-        hostname: null,
+        online: desktop.online,
+        hostname: desktop.hostname,
     })
 
     useEffect(() => {
-        setInterval(() => {
-            socket.emit("USER:GET_PC_STATUS", { client_id: _id }, (data: any) => {
-                if (data.status === 200) {
-                    setStatus({
-                        online: data.data.online,
-                        hostname: data.data.hostname,
-                    })
-                }
-            })
-        }, 1000)
-    }, [])
+        setStatus({
+            online: desktop.online,
+            hostname: desktop.hostname,
+        })
+    }, [status])
 
     return <Status status={status} />
 }
@@ -35,9 +29,14 @@ const StatusContainer: React.FC<IStatusContainerProps> = ({ _id }) => {
 const mapStateToProps = (
     state: any
 ): {
-    _id: string
+    desktop: IDesktopData
 } => {
-    return { _id: state.user._id }
+    return {
+        desktop: {
+            online: state.desktop.online,
+            hostname: state.desktop.hostname,
+        },
+    }
 }
 
 export default connect(mapStateToProps)(StatusContainer)

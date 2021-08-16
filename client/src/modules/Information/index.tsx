@@ -1,15 +1,19 @@
 import * as React from "react"
-import { socket } from "../../core"
 
-import { Status, General } from "./containers"
+import { Status, StaticData } from "./containers"
 
 import { Information as InformationStyle } from "../../style"
 
 const Information = () => {
     return (
         <InformationStyle.Layout>
-            <Status />
-            <General />
+            <InformationStyle.Block>
+                <h2 className="block__title">Статическая информация</h2>
+                <div className="block__container">
+                    <Status />
+                    <StaticData />
+                </div>
+            </InformationStyle.Block>
         </InformationStyle.Layout>
     )
 }

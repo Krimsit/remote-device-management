@@ -1,2 +1,2 @@
 export { default as Status } from "./Status"
-export { default as General } from "./General"
+export { default as StaticData } from "./StaticData"

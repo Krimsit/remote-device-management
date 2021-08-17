@@ -35,6 +35,7 @@ const actions = {
                             name: res.data.name,
                             online: res.data.online,
                             hostname: res.data.hostname,
+                            battery: res.data.battery,
                         },
                     })
                     // dispatch({
@@ -52,6 +53,7 @@ const actions = {
             const old_data: IDesktopData = {
                 online: getState().desktop.online,
                 hostname: getState().desktop.hostname,
+                battery: getState().desktop.battery,
             }
 
             if (getChange(old_data, data)) {

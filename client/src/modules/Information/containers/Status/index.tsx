@@ -14,12 +14,14 @@ const StatusContainer: React.FC<IStatusContainerProps> = ({ desktop }) => {
     const [status, setStatus] = useState({
         online: desktop.online,
         hostname: desktop.hostname,
+        battery: desktop.battery,
     })
 
     useEffect(() => {
         setStatus({
             online: desktop.online,
             hostname: desktop.hostname,
+            battery: desktop.battery,
         })
     }, [status])
 
@@ -35,6 +37,7 @@ const mapStateToProps = (
         desktop: {
             online: state.desktop.online,
             hostname: state.desktop.hostname,
+            battery: state.desktop.battery,
         },
     }
 }

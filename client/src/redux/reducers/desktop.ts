@@ -4,6 +4,11 @@ interface IDesktopInitialStateProps {
     name?: string
     hostname?: string
     online?: boolean
+    battery?: {
+        hasBattery: boolean
+        isCharging: boolean
+        percent: number
+    }
     static_data?: IDesktopStaticData
     dynamic_data?: IDesktopDynamicData
 }
@@ -17,6 +22,11 @@ const initialState: IDesktopInitialStateProps = {
     _id: null,
     name: null,
     online: false,
+    battery: {
+        hasBattery: false,
+        isCharging: false,
+        percent: 0,
+    },
     static_data: {
         model: null,
         cpu: {
@@ -41,18 +51,9 @@ const initialState: IDesktopInitialStateProps = {
                 size: 0,
             },
         ],
+        dateUpdate: null,
     },
     dynamic_data: {
-        memory: [
-            {
-                size: 0,
-                bank: null,
-            },
-        ],
-        battery: {
-            hasBattery: false,
-            isCharging: false,
-        },
         disks: [
             {
                 fs: null,
@@ -60,9 +61,9 @@ const initialState: IDesktopInitialStateProps = {
                 size: 0,
                 used: 0,
                 available: 0,
-                use: 0,
             },
         ],
+        dateUpdate: null,
     },
 }
 
@@ -73,12 +74,14 @@ export default function user(state = initialState, action: IActionProps): IDeskt
                 _id: action.payload._id,
                 name: action.payload.name,
                 online: action.payload.online,
+                battery: action.payload.battery,
             }
         case "DESKTOP:SET_DATA":
             return {
                 ...state,
                 hostname: action.payload.hostname,
                 online: action.payload.online,
+                battery: action.payload.battery,
             }
         case "DESKTOP:SET_STATIC_DATA":
             return {

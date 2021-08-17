@@ -3,6 +3,11 @@ export interface IDesktopData {
     name?: string
     online: boolean
     hostname: string
+    battery: {
+        hasBattery: boolean
+        isCharging: boolean
+        percent: number
+    }
 }
 
 export interface IDesktopStaticData {
@@ -29,19 +34,10 @@ export interface IDesktopStaticData {
             size: number
         }
     ]
+    dateUpdate: string
 }
 
 export interface IDesktopDynamicData {
-    memory: [
-        {
-            size: number
-            bank: string
-        }
-    ]
-    battery: {
-        hasBattery: boolean
-        isCharging: boolean
-    }
     disks: [
         {
             fs: string
@@ -49,7 +45,7 @@ export interface IDesktopDynamicData {
             size: number
             used: number
             available: number
-            use: number
         }
     ]
+    dateUpdate: string
 }

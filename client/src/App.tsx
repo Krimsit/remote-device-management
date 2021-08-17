@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useEffect } from "react"
 import { Route, Switch, Redirect } from "react-router-dom"
 import { connect } from "react-redux"
 
@@ -13,13 +14,13 @@ interface IAppContainerProps {
 }
 
 const App: React.FC<IAppContainerProps> = ({ isAuth, client_id }) => {
-    React.useEffect(() => {
+    useEffect(() => {
         socket.on("connect", async () => {
             socket.emit("SERVER:JOIN_ROOM", { user: true, client_id: client_id })
         })
     }, [])
 
-    getNotification()
+    // getNotification()
     getData(client_id)
 
     return (

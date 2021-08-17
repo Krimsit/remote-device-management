@@ -12,7 +12,7 @@ const createSocket = (http) => {
             if (data.pc && data.static_data && data.dynamic_data) {
                 DesktopModel.findOneAndUpdate(
                     { user: data.client_id },
-                    { online: true, static_data: data.static_data, dynamic_data: data.dynamic_data, hostname: data.static_data.os.hostname },
+                    { online: true, static_data: data.static_data, dynamic_data: data.dynamic_data, hostname: data.static_data.os.hostname, battery: data.dynamic_data.battery },
                     { upsert: false }
                 )
                     .populate(["user"])
@@ -33,7 +33,7 @@ const createSocket = (http) => {
         socket.on("USER:GET_PC_STATUS", (data, callback) => {
             DesktopModel.findOne({ user: data.client_id }, (err, desktop) => {
                 if (desktop) {
-                    callback({ status: 200, data: { online: desktop.online, hostname: desktop.hostname } })
+                    callback({ status: 200, data: { online: desktop.online, hostname: desktop.hostname, battery: desktop.battery } })
                 }
             })
         })
@@ -54,7 +54,7 @@ const createSocket = (http) => {
 
         //Обновление инфоромации
         socket.on("PC:DYNAMIC_DATA", (data) => {
-            DesktopModel.findOneAndUpdate({ user: data.client_id }, { dynamic_data: data.dynamic_data }, { upset: false }, (err, desktop) => {
+            DesktopModel.findOneAndUpdate({ user: data.client_id }, { dynamic_data: data.dynamic_data, battery: data.dynamic_data.battery }, { upset: false }, (err, desktop) => {
                 if (err) {
                     socket.broadcast.to(`room_${data.client_id}`).emit("NOTIFICATION:UPDATE_DYNAMIC_DATA", { status: 500, data: "Непредвиденная ошибка сервера" })
                 } else if (!desktop) {
@@ -65,6 +65,7 @@ const createSocket = (http) => {
             })
         })
         socket.on("PC:STATIC_DATA", (data) => {
+            console.log(123)
             DesktopModel.findOneAndUpdate({ user: data.client_id }, { static_data: data.static_data }, { upset: false }, (err, desktop) => {
                 if (err) {
                     socket.broadcast.to(`room_${data.client_id}`).emit("NOTIFICATION:UPDATE_STATIC_DATA", { status: 500, data: "Непредвиденная ошибка сервера" })

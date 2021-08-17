@@ -11,9 +11,13 @@ const desktopScheme = new Schema({
         required: true,
     },
     hostname: String,
+    battery: {
+        hasBattery: Boolean,
+        isCharging: Boolean,
+        percent: Number,
+    },
     static_data: {
         model: String,
-        baseboard: String,
         cpu: {
             model: String,
             cores: Number,
@@ -36,11 +40,11 @@ const desktopScheme = new Schema({
                 size: Number,
             },
         ],
+        dateUpdate: Date,
     },
     dynamic_data: {
-        memory: Array,
-        battery: Object,
         disks: Array,
+        dateUpdate: Date,
     },
 })
 

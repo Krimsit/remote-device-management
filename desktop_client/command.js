@@ -2,8 +2,6 @@ import si from "systeminformation"
 
 const command = {
     getStaticData: async () => {
-        // const data = { model: null, baseboard: null, cpu: null, memory: null, graphics: null, os: null, disks: null }
-
         const data = {
             model: null,
             cpu: {
@@ -29,6 +27,7 @@ const command = {
                     size: null,
                 },
             ],
+            dateUpdate: new Date(),
         }
 
         const system = await si.system()
@@ -53,18 +52,18 @@ const command = {
     },
     getDynamicData: async () => {
         const data = {
-            memory: null,
             battery: null,
             disks: null,
+            dateUpdate: new Date(),
         }
 
-        const memory = await si.memLayout()
         const battery = await si.battery()
         const disks = await si.fsSize()
 
-        data.memory = memory
-        data.battery = battery
-        data.disks = disks
+        data.battery = { hasBattery: battery.hasBattery, isCharging: battery.isCharging, percent: battery.percent }
+        data.disks = disks.map((disk) => {
+            return { fs: disk.fs, type: disk.type, size: disk.size, used: disk.used, available: disk.available }
+        })
 
         return data
     },

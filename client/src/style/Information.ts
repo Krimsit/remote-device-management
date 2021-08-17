@@ -43,6 +43,11 @@ const Status = styled.div`
             height: 10px;
             background: ${(props: { status: boolean }) => (props.status ? "#52C41A" : "#FF4D4F")};
         }
+
+        .battery {
+            margin: 0 auto;
+            width: 50%;
+        }
     }
 
     @media (max-width: 768px) {
@@ -86,6 +91,11 @@ const StaticData = styled.div`
         .card__container {
             &__item {
                 width: 100%;
+            }
+
+            &__btn {
+                position: relative;
+                margin: 0 auto;
             }
         }
     }

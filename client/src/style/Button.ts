@@ -2,8 +2,9 @@ import styled from "styled-components"
 import { Button } from "antd"
 
 const Update = styled(Button)`
-    transform: rotate(45deg);
     font-size: 16px;
+    padding: 0 5px;
+    vertical-align: middle;
 
     &:hover {
         background: transparent;

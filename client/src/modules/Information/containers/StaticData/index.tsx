@@ -19,12 +19,10 @@ const StaticDataContainer: React.FC<IStaticDataContainerProps> = ({ _id, static_
 
     useEffect(() => {
         setData(static_data)
-    }, [data, static_data])
+    }, [static_data])
 
     const updateData = () => {
-        setLoading(true)
         axios.get(`${process.env.SERVER_URL}/desktop/updateStaticData?client_id=${_id}`)
-        setLoading(false)
     }
 
     return <StaticData data={data} loading={loading} updateData={updateData} />

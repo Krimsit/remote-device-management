@@ -1,6 +1,7 @@
 import * as React from "react"
+import Moment from "react-moment"
+import { Update } from "@material-ui/icons"
 import { Typography, Tooltip, Skeleton } from "antd"
-import { UndoOutlined } from "@ant-design/icons"
 
 import { IDesktopStaticData } from "../../../../interface/desktop"
 
@@ -75,8 +76,9 @@ const StaticDataComponent: React.FC<IStaticDataComponentProps> = ({ loading, dat
                         </Paragraph>
                     </div>
                     <Tooltip title="Обновить" className="card__container__btn">
+                        <Moment format="YYYY-MM-DD hh:mm:ss">{data.dateUpdate}</Moment>
                         <Button.Update type="text" onClick={updateData}>
-                            <UndoOutlined />
+                            <Update />
                         </Button.Update>
                     </Tooltip>
                 </div>

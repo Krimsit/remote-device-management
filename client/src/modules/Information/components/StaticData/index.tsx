@@ -5,7 +5,7 @@ import { Typography, Tooltip, Skeleton } from "antd"
 
 import { IDesktopStaticData } from "../../../../interface/desktop"
 
-import { Information, Button } from "../../../../style"
+import { Information, Button, Components } from "../../../../style"
 
 const { Paragraph } = Typography
 
@@ -20,11 +20,11 @@ const StaticDataComponent: React.FC<IStaticDataComponentProps> = ({ loading, dat
         <Information.StaticData>
             {!loading && data ? (
                 <div className="card__container">
-                    <div className="card__container__item">
+                    <Components.Card className="card__container__item">
                         <h3>Модель</h3>
                         {data.model}
-                    </div>
-                    <div className="card__container__item">
+                    </Components.Card>
+                    <Components.Card className="card__container__item">
                         <h3>Процессор</h3>
 
                         <Paragraph>
@@ -34,12 +34,12 @@ const StaticDataComponent: React.FC<IStaticDataComponentProps> = ({ loading, dat
                             <br />
                             <span>Частота: {data.cpu.speed}</span>
                         </Paragraph>
-                    </div>
-                    <div className="card__container__item">
+                    </Components.Card>
+                    <Components.Card className="card__container__item">
                         <h3>Оперативная память</h3>
                         {data.memory}
-                    </div>
-                    <div className="card__container__item">
+                    </Components.Card>
+                    <Components.Card className="card__container__item">
                         <h3>Видеокарты</h3>
                         <Paragraph>
                             <ul>
@@ -52,16 +52,16 @@ const StaticDataComponent: React.FC<IStaticDataComponentProps> = ({ loading, dat
                                 ))}
                             </ul>
                         </Paragraph>
-                    </div>
-                    <div className="card__container__item">
+                    </Components.Card>
+                    <Components.Card className="card__container__item">
                         <h3>Операционная система</h3>
                         <Paragraph>
                             <span>Название: {data.os.distro}</span>
                             <br />
                             <span>Архитектура: {data.os.arch}</span>
                         </Paragraph>
-                    </div>
-                    <div className="card__container__item">
+                    </Components.Card>
+                    <Components.Card className="card__container__item">
                         <h3>Диски</h3>
                         <Paragraph>
                             <ul>
@@ -74,7 +74,7 @@ const StaticDataComponent: React.FC<IStaticDataComponentProps> = ({ loading, dat
                                 ))}
                             </ul>
                         </Paragraph>
-                    </div>
+                    </Components.Card>
                     <Tooltip title="Обновить" className="card__container__btn">
                         <Moment format="YYYY-MM-DD hh:mm:ss">{data.dateUpdate}</Moment>
                         <Button.Update type="text" onClick={updateData}>

@@ -1,36 +1,10 @@
-import { notification } from "antd"
+import { Dispatch, SetStateAction } from "react"
 import { socket } from "../../core"
 
-const getNotification = () => {
-    socket.on("NOTIFICATION:UPDATE_DYNAMIC_DATA", (data) => {
-        if (data.status !== 200) {
-            notification.error({
-                description: "Ошибка",
-                message: data.data,
-                duration: 3,
-            })
-        } else {
-            notification.success({
-                description: "Успешно",
-                message: data.data,
-                duration: 3,
-            })
-        }
-    })
-    socket.on("NOTIFICATION:UPDATE_STATIC_DATA", (data) => {
-        if (data.status !== 200) {
-            notification.error({
-                description: "Ошибка",
-                message: data.data,
-                duration: 3,
-            })
-        } else {
-            notification.success({
-                description: "Успешно",
-                message: data.data,
-                duration: 3,
-            })
-        }
+const getNotification = (setOpenNotification: Dispatch<SetStateAction<boolean>>, setNotificationData: Dispatch<SetStateAction<{ status: number; data: string }>>): void => {
+    socket.on(`NOTIFICATION:UPDATE_${"STATIC_DATA" || "DYNAMIC_DATA" || "BATTERY_STATUS"}`, (data) => {
+        setNotificationData(data)
+        setOpenNotification(true)
     })
 }
 

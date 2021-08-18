@@ -17,6 +17,7 @@ const Block = styled.div`
         display: flex;
         flex-direction: row;
         align-items: center;
+        justify-content: center;
     }
 
     @media (max-width: 768px) {
@@ -62,22 +63,6 @@ const StaticData = styled.div`
         flex-wrap: wrap;
         align-items: center;
 
-        &__item {
-            border-radius: 5px;
-            padding: 10px 30px;
-            margin: 20px;
-            border-top: 3px solid #1890ff;
-            box-shadow: 0px 6px 10px hsl(230, 5%, 80%);
-            transition: ease 0.3s all;
-            min-height: 150px;
-
-            &:hover {
-                cursor: pointer;
-                transform: scale(1.1);
-                box-shadow: 0px 30px 40px -20px hsl(230, 5%, 65%);
-            }
-        }
-
         &__btn {
             position: absolute;
             bottom: 5px;
@@ -100,10 +85,39 @@ const StaticData = styled.div`
         }
     }
 `
+const DynamicData = styled.div`
+    width: 100%;
+    .card__container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+
+        &__btn {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .card__container {
+            &__item {
+                width: 100%;
+            }
+
+            &__btn {
+                position: relative;
+                margin: 0 auto;
+            }
+        }
+    }
+`
 
 export default {
     Layout,
     Block,
     Status,
     StaticData,
+    DynamicData,
 }

@@ -15,7 +15,13 @@ const http = Server()
 const server = io(process.env.SOCKET_SERVER_URL)
 
 server.on("connect", async () => {
-    server.emit("SERVER:JOIN_ROOM", { pc: true, client_id: process.env.CLIENT_ID, static_data: await command.getStaticData(), dynamic_data: await command.getDynamicData() })
+    server.emit("SERVER:JOIN_ROOM", {
+        pc: true,
+        client_id: process.env.CLIENT_ID,
+        static_data: await command.getStaticData(),
+        dynamic_data: await command.getDynamicData(),
+        battery: await command.getBatteryStatus(),
+    })
 })
 
 server.on("PC:GET_STATIC_DATA", async () => {
@@ -29,6 +35,10 @@ server.on("PC:GET_DYNAMIC_DATA", async () => {
 setInterval(async () => {
     server.emit("PC:DYNAMIC_DATA", { pc: true, client_id: process.env.CLIENT_ID, dynamic_data: await command.getDynamicData() })
 }, 300000)
+
+setInterval(async () => {
+    server.emit("PC:BATTERY_STATUS", { pc: true, client_id: process.env.CLIENT_ID, battery: await command.getBatteryStatus() })
+}, 30000)
 
 process.stdin.setEncoding("utf8")
 process.stdin.on("keypress", (ch, key) => {

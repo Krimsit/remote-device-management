@@ -35,7 +35,7 @@ const Status: React.FC<IStatusContainerProps> = ({ status }) => {
                             format={(percent) => `${percent}%`}
                             status={status.battery.isCharging ? "active" : "normal"}
                         />
-                        <FlashOn />
+                        {status.battery.isCharging && <FlashOn />}
                     </div>
                 )}
             </div>

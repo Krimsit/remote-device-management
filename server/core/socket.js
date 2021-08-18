@@ -74,7 +74,6 @@ const createSocket = (http) => {
             })
         })
         socket.on("PC:STATIC_DATA", (data) => {
-            console.log(123)
             DesktopModel.findOneAndUpdate({ user: data.client_id }, { static_data: data.static_data }, { upset: false }, (err, desktop) => {
                 if (err) {
                     socket.broadcast.to(`room_${data.client_id}`).emit("NOTIFICATION:UPDATE_STATIC_DATA", { status: 500, data: "Непредвиденная ошибка сервера" })

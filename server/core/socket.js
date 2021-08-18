@@ -53,8 +53,17 @@ const createSocket = (http) => {
         })
 
         //Обновление инфоромации
+        socket.on("PC:BATTERY_STATUS", (data) => {
+            DesktopModel.findOneAndUpdate({ user: data.client_id }, { battery: data.battery }, { upset: false }, (err, desktop) => {
+                if (err) {
+                    socket.broadcast.to(`room_${data.client_id}`).emit("NOTIFICATION:UPDATE_BATTERY_STATUS", { status: 500, data: "Непредвиденная ошибка сервера" })
+                } else if (!desktop) {
+                    socket.broadcast.to(`room_${data.client_id}`).emit("NOTIFICATION:UPDATE_BATTERY_STATUS", { status: 404, data: "Компьютер не найден" })
+                }
+            })
+        })
         socket.on("PC:DYNAMIC_DATA", (data) => {
-            DesktopModel.findOneAndUpdate({ user: data.client_id }, { dynamic_data: data.dynamic_data, battery: data.dynamic_data.battery }, { upset: false }, (err, desktop) => {
+            DesktopModel.findOneAndUpdate({ user: data.client_id }, { dynamic_data: data.dynamic_data }, { upset: false }, (err, desktop) => {
                 if (err) {
                     socket.broadcast.to(`room_${data.client_id}`).emit("NOTIFICATION:UPDATE_DYNAMIC_DATA", { status: 500, data: "Непредвиденная ошибка сервера" })
                 } else if (!desktop) {
